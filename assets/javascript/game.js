@@ -9,26 +9,44 @@ var guessesRemaining = 10;
 var lettersGuessed = "";
 var answer = [];
 var remaining;
-var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 
-                        'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
 
+function checkLetters () {
+
+    document.onkeypress = function(event) {
+
+        var charCode = event.which || event.keyCode;
+        var charStr = String.fromCharCode(charCode);
+           
+        if (/[^a-z]/i.test(charStr)) {
+            alert("please use only letters");
+        }
+
+        else {
+
+        }
+    };
+}
 function randomWord () {
     return words[Math.floor(Math.random() * words.length)];
 }
+
+function replaceAt(string, index, replace) {
+    return string.substring(0, index) + replace + string.substring(index + 1);
+  }
 
 function startGame () {
 
     var word = randomWord();
     var maskedWord = word.replace(/[a-z]/gi, "- ");
-    console.log(maskedWord);
     remaining = word.length;
     var size = word.length;
-    console.log(size);
 
     document.getElementById("word").innerHTML = maskedWord;
     document.getElementById("wins").innerHTML = wins;
     document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
     document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
+
+    checkLetters();
 
 }
 
