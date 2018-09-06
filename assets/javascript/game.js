@@ -8,9 +8,41 @@ var wins = 0;
 var guessesRemaining = 10;
 var lettersGuessed = "";
 var answer = [];
-var remaining;
+var maskedWord = "";
 
-function checkLetters () {
+function randomWord () {
+    return words[Math.floor(Math.random() * words.length)];
+}
+
+function replaceAt(index, char) {
+
+    var pos = 0;
+
+    for (var i = 0; i < maskedWord.length; i++) {
+
+        if ((maskedWord[i] == "-" || maskedWord[i].match(/[a-z]/i)) && i != 0)
+            pos++;
+
+        if (pos == index) {
+            pos = i;
+            break;
+        }
+    }
+
+    return maskedWord.substr(0,pos) + char + maskedWord.substr(pos+1);
+}
+
+function updateHtml () {
+
+    document.getElementById("word").innerHTML = maskedWord;
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
+    document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
+}
+
+function checkLetters (word) {
+    
+    console.log(word);
 
     document.onkeypress = function(event) {
 
@@ -23,30 +55,40 @@ function checkLetters () {
 
         else {
 
+            var indexOfLetters = [];
+            for (var i = 0; i < word.length; i++) {
+                
+                if (charStr == word[i])
+                    indexOfLetters[indexOfLetters.length] = i;
+            }
+
+            if (indexOfLetters.length > 0) {
+
+                lettersGuessed = lettersGuessed + " " + charStr.toUpperCase();
+
+                for (var i = 0; i < indexOfLetters.length; i++) {
+                    maskedWord = replaceAt(indexOfLetters[i], charStr);
+                }
+            }
+
+            else
+                guessesRemaining--;
+
+            updateHtml ();
+
         }
     };
 }
-function randomWord () {
-    return words[Math.floor(Math.random() * words.length)];
-}
-
-function replaceAt(string, index, replace) {
-    return string.substring(0, index) + replace + string.substring(index + 1);
-  }
 
 function startGame () {
 
     var word = randomWord();
-    var maskedWord = word.replace(/[a-z]/gi, "- ");
-    remaining = word.length;
+    maskedWord = word.replace(/[a-z]/gi, "- ").trim();
     var size = word.length;
 
-    document.getElementById("word").innerHTML = maskedWord;
-    document.getElementById("wins").innerHTML = wins;
-    document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
-    document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
+    updateHtml();
 
-    checkLetters();
+    checkLetters(word, maskedWord);
 
 }
 
