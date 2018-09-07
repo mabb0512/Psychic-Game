@@ -1,0 +1,23 @@
+* {
+    font-family: 'Indie Flower', cursive;
+    --color: white;
+}
+
+.bk-image {
+    background-image: url("../images/6680.jpg");
+    --background-color: #cccccc;
+    height: 700px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.bg-1 { 
+    background-color: lightblue; /* Green */
+    color: #ffffff;
+}
+
+section {
+    font-size: 20px;
+}
