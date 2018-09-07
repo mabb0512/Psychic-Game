@@ -2,7 +2,9 @@
 var words = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "shrimp", "crab", 
              "starfish", "diver", "whale", "seahorse", "coral", "barracuda",  "dolphin", "grouper",
              "hammerhead", "octupus", "oyster", "mantaray", "mermaid", "angelfish", "swordfish",
-             "turtle", "stingray", "lobster", "seal", "conch", "salmon", "tuna", "moray", "atlantis"];
+             "turtle", "stingray", "lobster", "seal", "conch", "salmon", "tuna", "moray", "atlantis",
+             "bluefish", "marlin", "anemone", "anchovy", "bass", "dory", "nemo", "eel", "flounder", "fluke",
+             "halibut", "manatee", "mussle" ];
 
 var begin = true; //true if first time using game
 var wins = 0; //number or wins
@@ -106,7 +108,7 @@ function updateHtml () {
     }
 
     //update html tags with values
-    document.getElementById("word").innerHTML = maskedWord;
+    document.getElementById("word").innerHTML = maskedWord.toUpperCase();
     document.getElementById("wins").innerHTML = wins;
     document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
     document.getElementById("lettersGuessed").innerHTML = lettersGuessed;

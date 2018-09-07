@@ -12,6 +12,14 @@
     position: relative;
 }
 
+.word {
+    padding-top: 100px;
+}
+
+.wrapper {
+    padding-top: 150px;
+}
+
 .bg-1 { 
     background-color: lightblue; /* Green */
     color: #ffffff;
