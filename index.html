@@ -5,13 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" /> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <script src="assets/javascript/game.js"></script>
 </head>
 <body class="bk-image">
+    <audio id="winAudio">
+        <source src="assets/audio/winning.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="loseAudio">
+            <source src="assets/audio/losing.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     <div class="container-fluid">
         <header class="bg-1 text-center">
             <h1>Under the Sea HANGMAN!</h1>
@@ -22,9 +29,9 @@
             <div class="col-1"></div>
             <div class="col-5">
                 <section>
-                    <h2 id="keyStart">Press any key to get started!</h2>
-                    <div>Wins: <span id="wins"></span></div>
-                    <div id="word"></div>
+                    <h3 id="keyStart">Press any key to get started!</h3>
+                    <div class="text-center"><h3><span id="word"></span></h3></div>
+                    <div><Strong>Wins: <span id="wins"></span></Strong></div>
                     <div>Number of guesses remaining: <span id="guessesRemaining"></span></div>
                     <div>Letters already guessed: <span id="lettersGuessed"></span></div>
                     <div>Letters not in word: <span id="lettersNotInWord"></span></div>

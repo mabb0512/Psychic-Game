@@ -1,4 +1,4 @@
-//array or words
+//array of words
 var words = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "shrimp", "crab", 
              "starfish", "diver", "whale", "seahorse", "coral", "barracuda",  "dolphin", "grouper",
              "hammerhead", "octupus", "oyster", "mantaray", "mermaid", "angelfish", "swordfish",
@@ -34,6 +34,22 @@ function randomWord () {
     return word;
 }
 
+//function to play winning audio
+function youWinAudio () {
+
+    var winAudio = document.getElementById("winAudio"); 
+    winAudio.play();
+    startAgain();
+}
+
+//function to play loser audio
+function youLoseAudio () {
+    
+    var loseAudio = document.getElementById("loseAudio"); 
+    loseAudio.play();
+    startAgain();
+}
+
 //replaces "-" with correct letter of word
 function replaceAt(index, char) {
 
@@ -62,12 +78,12 @@ function startAgain () {
     document.onkeypress = function(event) { 
             
         gameWinned = false;
+        gameOver = false;
         guessesRemaining = 10;
         lettersGuessed = "";
         lettersNotInWord = "";
         lettersGuessedArray = [];
         lettersNotInWordArray = [];
-        document.getElementById("keyStart").style.display = "none";
         startGame();
     }
 }
@@ -78,19 +94,15 @@ function updateHtml () {
     //if game over alert user and give option to begin again
     if (gameOver) {
 
-        document.getElementById("keyStart").style.display = "initial";
         document.getElementById("keyStart").innerHTML = "Game Over! You Lose. Try Again. Press Any Key to continue.";
-
-        startAgain();
+        youLoseAudio();
     }
 
     //if game won alert user and give option to begin again
     if (gameWinned) {
         
-        document.getElementById("keyStart").style.display = "initial";
         document.getElementById("keyStart").innerHTML = "You Win!. Keep going. Press Any Key to continue.";
-        
-        startAgain();
+        youWinAudio();
     }
 
     //update html tags with values
@@ -193,6 +205,8 @@ function startGame () {
     maskedWord = word.replace(/[a-z]/gi, "- ").trim();
     var size = word.length;
 
+    document.getElementById("keyStart").innerHTML = "Word to Guess is " + size + " letters long:"
+
     updateHtml();
     checkLetters(word);
 }
@@ -202,7 +216,6 @@ document.onkeyup = function(event) {
 
     if (begin) {
         begin = false;
-        document.getElementById("keyStart").style.display = "none";
         startGame ();
     }
 }
