@@ -5,13 +5,6 @@ var words = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "
              "turtle", "stingray", "lobster", "seal", "conch", "salmon", "tuna", "moray", "atlantis",
              "bluefish", "marlin", "anemone", "anchovy", "bass", "dory", "nemo", "eel", "flounder", "fluke",
              "halibut", "manatee", "mussle"];
-//copy of words to delete guessed word when playing again
-var words2 = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "shrimp", "crab", 
-             "starfish", "diver", "whale", "seahorse", "coral", "barracuda",  "dolphin", "grouper",
-             "hammerhead", "octupus", "oyster", "mantaray", "mermaid", "angelfish", "swordfish",
-             "turtle", "stingray", "lobster", "seal", "conch", "salmon", "tuna", "moray", "atlantis",
-             "bluefish", "marlin", "anemone", "anchovy", "bass", "dory", "nemo", "eel", "flounder", "fluke",
-             "halibut", "manatee", "mussle"]; 
 var begin = true; //true if first time using game
 var wins = 0; //number or wins
 var guessesRemaining = 10; //number of guesses
@@ -24,31 +17,21 @@ var pickedWords = []; //save words already use
 var gameOver = false;
 var gameWinned = false;
 var playAgain = false;
-var word = "";
 
 //choose random word to guess from words array
 function randomWord () {
 
-    //if user plays again delete guessed word from 2nd array and choose other one to prevent repeated words
-    if (playAgain) {
+    var result = words[Math.floor(Math.random() * words.length)];
 
-        //if guessed word in 2nd array delete it 
-        if (words2.indexOf(word) > -1)
-            words2.splice (words2.indexOf(word), 1);
-        
-         //check 2nd array to make sure is not empty
-        if (words2.length == 0)
-            words2 = words;
+    if (pickedWords.length > 0) {
 
-        //choose other word to play from 2nd array
-        word = words2[Math.floor(Math.random() * words2.length)];
+        while (pickedWords.indexOf(result) > -1) {
+
+            result = words[Math.floor(Math.random() * words.length)];
+        }
     }
-
-    //1st time playing, so choose from 1st array
-    else
-        word = words[Math.floor(Math.random() * words.length)];
     
-    return word;
+    return result;
 }
 
 //function to play winning audio
