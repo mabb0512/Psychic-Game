@@ -4,7 +4,14 @@ var words = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "
              "hammerhead", "octupus", "oyster", "mantaray", "mermaid", "angelfish", "swordfish",
              "turtle", "stingray", "lobster", "seal", "conch", "salmon", "tuna", "moray", "atlantis",
              "bluefish", "marlin", "anemone", "anchovy", "bass", "dory", "nemo", "eel", "flounder", "fluke",
-             "halibut", "manatee", "mussle" ];
+             "halibut", "manatee", "mussle"];
+
+var words2 = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "shrimp", "crab", 
+             "starfish", "diver", "whale", "seahorse", "coral", "barracuda",  "dolphin", "grouper",
+             "hammerhead", "octupus", "oyster", "mantaray", "mermaid", "angelfish", "swordfish",
+             "turtle", "stingray", "lobster", "seal", "conch", "salmon", "tuna", "moray", "atlantis",
+             "bluefish", "marlin", "anemone", "anchovy", "bass", "dory", "nemo", "eel", "flounder", "fluke",
+             "halibut", "manatee", "mussle"];
 
 var begin = true; //true if first time using game
 var wins = 0; //number or wins
@@ -17,22 +24,31 @@ var maskedWord = ""; //mask chosen word with dashes
 var pickedWords = []; //save words already use
 var gameOver = false;
 var gameWinned = false;
+var playAgain = false;
+var word = "";
 
 //choose random word to guess from words array
 function randomWord () {
 
-    //Get random word from array
-    var word = words[Math.floor(Math.random() * words.length)];
+    //check 2nd array to make sure is not empty
+    if (words2.length == 0)
+        words2 = words;
 
-    //loop through picked words and if already guessed then pick another one
-    for (var i = 0; i < pickedWords.length; i++) {
+    //if user plays again delete guessed word from 2nd array and choose other one to prevent repeated words
+    else if (playAgain) {
 
-        if (pickedWords[i] == word)
-            word = words[Math.floor(Math.random() * words.length)];
+        //if guessed word in 2nd array delete it 
+        if (words2.indexOf(word) > -1)
+            words2.splice (words2.indexOf(word), 1)
+
+        //choose other word to play from 2nd array
+        word = words2[Math.floor(Math.random() * words2.length)];
     }
 
-    //save chosen word to array
-    pickedWords[pickedWords.length] = word;
+    //1st time playing, so choose from 1st array
+    else
+        word = words[Math.floor(Math.random() * words.length)];
+    
     return word;
 }
 
@@ -124,6 +140,7 @@ function checkWordComplete (word) {
 
         wins++;
         gameWinned = true;
+        playAgain = true;
         updateHtml();
     }
 }
@@ -192,8 +209,11 @@ function checkLetters (word) {
         }
 
         //ran out of guesses so game over
-        else
-            gameOver = true;
+        else {
+             gameOver = true;
+             playAgain = true;
+        }
+           
 
         //updates html content with updated variables to track progress
         updateHtml ();
