@@ -6,12 +6,7 @@ var words = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "
              "bluefish", "marlin", "anemone", "anchovy", "bass", "dory", "nemo", "eel", "flounder", "fluke",
              "halibut", "manatee", "mussle"];
 
-var words2 = ["aquaman", "seaweed", "clownfish", "shark", "jellyfish", "squid", "shrimp", "crab", 
-             "starfish", "diver", "whale", "seahorse", "coral", "barracuda",  "dolphin", "grouper",
-             "hammerhead", "octupus", "oyster", "mantaray", "mermaid", "angelfish", "swordfish",
-             "turtle", "stingray", "lobster", "seal", "conch", "salmon", "tuna", "moray", "atlantis",
-             "bluefish", "marlin", "anemone", "anchovy", "bass", "dory", "nemo", "eel", "flounder", "fluke",
-             "halibut", "manatee", "mussle"];
+var words2 = [];
 
 var begin = true; //true if first time using game
 var wins = 0; //number or wins
@@ -238,6 +233,7 @@ document.onkeyup = function(event) {
 
     if (begin) {
         begin = false;
+        words2 = words;
         startGame ();
     }
 }
