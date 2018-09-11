@@ -22,15 +22,28 @@ var playAgain = false;
 function randomWord () {
 
     var result = words[Math.floor(Math.random() * words.length)];
+    
+    //check if all words have been chosen to reset array
+    if (pickedWords.length == words.length) {
+        pickedWords = [];
+    }
 
-    if (pickedWords.length > 0) {
+    //checks if its first word to guess and add it to array
+    if (pickedWords.length == 0) {
+        pickedWords.push(result);
+    }
 
+    else {
+
+        //generate word until one not guessed has been found
         while (pickedWords.indexOf(result) > -1) {
 
             result = words[Math.floor(Math.random() * words.length)];
         }
+
+        pickedWords.push(result);
     }
-    
+
     return result;
 }
 
@@ -56,12 +69,14 @@ function replaceAt(index, char) {
     checkWordComplete();
     var pos = 0; //counter to consider spaces between dashes
 
-    //loop through masked word to replace dashes with character
+    //loop through masked word to replace dashes with character (including spaces)
     for (var i = 0; i < maskedWord.length; i++) {
 
+        //get position of masked word withouth spaces
         if ((maskedWord[i] == "-" || maskedWord[i].match(/[a-z]/i)) && i != 0)
             pos++;
 
+        //when pos is equal to index, that is the place we need to insert our character
         if (pos == index) {
             pos = i;
             break;
@@ -167,7 +182,7 @@ function checkLetters (word) {
                 //if greater than 0 it means that character was found in word
                 if (indexOfLetters.length > 0) {
 
-                    //add character to guessed letters array
+                    //add character to guessed letters array and string for display
                     lettersGuessed = lettersGuessed + " " + charStr.toUpperCase();
                     lettersGuessedArray[lettersGuessedArray.length] = charStr;
 
@@ -192,6 +207,7 @@ function checkLetters (word) {
 
         //ran out of guesses so game over
         else {
+            
              gameOver = true;
              playAgain = true;
         }
